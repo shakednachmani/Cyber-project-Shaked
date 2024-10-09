@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage - Recently Added Client</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .package-table {
+            display: none; /* Initially hidden */
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .package-table th, .package-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .package-table th {
+            background-color: #4CAF50;
+            color: white;
+            text-align: left;
+        }
+        .package-table tr:hover {background-color: #f2f2f2;}
+    </style>
+    <script>
+        function showPackages() {
+            var table = document.getElementById("packageTable");
+            if (table.style.display === "none") {
+                table.style.display = "block"; // Show the table when button is clicked
+            } else {
+                table.style.display = "none"; // Hide the table on subsequent clicks
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="navbar">
+        {% include 'navbar.html' %}
+    </div>
+
+    <header>
+        <h1>Welcome to Comunication_LTD</h1>
+    </header>
+
+    <div class="container">
+        <h2>Add a New Client</h2>
+        <!-- Form to add a new client -->
+        <form method="POST" action="{{ url_for('add_client') }}">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="user_code">User Code:</label>
+            <input type="text" id="user_code" name="user_code" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address">
+
+            <button type="submit">Add Client</button>
+            <!-- New Package Button -->
+            <button type="button" onclick="showPackages()">Packages</button>
+        </form>
+
+        <!-- Package Table (Initially hidden) -->
+        <table id="packageTable" class="package-table">
+            <thead>
+                <tr>
+                    <th>Speed (Mbps)</th>
+                    <th>Price (ILS)</th>
+                    <th>Sector</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10 M</td>
+                    <td>20 ILS</td>
+                    <td>Private</td>
+                </tr>
+                <tr>
+                    <td>20 M</td>
+                    <td>30 ILS</td>
+                    <td>Private</td>
+                </tr>
+                <tr>
+                    <td>50 M</td>
+                    <td>35 ILS</td>
+                    <td>Private</td>
+                </tr>
+                <tr>
+                    <td>100 M</td>
+                    <td>40 ILS</td>
+                    <td>Private</td>
+                </tr>
+                <tr>
+                    <td>500 M</td>
+                    <td>55 ILS</td>
+                    <td>Private</td>
+                </tr>
+                <tr>
+                    <td>1000 M</td>
+                    <td>70 ILS</td>
+                    <td>Business</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Recently Added Client</h2>
+
+        <!-- Display the most recent client -->
+        {% if client %}
+            <p><strong>Username:</strong> {{ client.username | safe }}</p>
+            <a href="{{ url_for('client_details', username=client.username) }}">View Details</a>
+        {% else %}
+            <p>No recent clients found.</p>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Comunication_LTD. All rights reserved.</p>
+    </footer>
+</body>
+</html>

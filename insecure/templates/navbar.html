@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <title>Navbar</title>
+</head>
+<body>
+    <nav>
+        <div class="navbar-container">
+            <div class="burger-menu" id="burger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div>
+                {% if session['is_logged_in'] %}
+                <div class="greeting">Hello{{ session['username'] }}</div>
+                {% endif %}
+            </div>
+            <a href="{{ url_for('ChangePassword') }}" class="logout">ChangePassword</a>
+            <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+            
+        </div>
+        <ul id="nav-links" class="nav-links">
+            <li><a href="{{ url_for('homepage') }}">Home</a></li>
+        </ul>
+    </nav>
+
+
+</body>
+</html>

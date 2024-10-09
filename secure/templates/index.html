@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage - Recently Added Client</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .package-table {
+            display: none;  /* Initially hide the package table */
+            margin-top: 20px;
+        }
+        .package-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .package-table th, .package-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .package-table th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+    </style>
+    <script>
+        function togglePackageTable() {
+            const table = document.getElementById('packageTable');
+            if (table.style.display === 'none' || table.style.display === '') {
+                table.style.display = 'block';
+            } else {
+                table.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="navbar">
+        {% include 'navbar.html' %}
+    </div>
+
+    <header>
+        <h1>Welcome to Comunication_LTD</h1>
+    </header>
+
+    <div class="container">
+        <h2>Add a New Client</h2>
+        <!-- Form to add a new client -->
+        <form method="POST" action="{{ url_for('add_client') }}">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="user_code">User Code:</label>
+            <input type="text" id="user_code" name="user_code" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address">
+
+            <button type="submit">Add Client</button>
+            <!-- Package button -->
+            <button type="button" onclick="togglePackageTable()">Packages</button>
+        </form>
+
+        <h2>Recently Added Client</h2>
+
+        <!-- Display the most recent client -->
+        {% if client %}
+            <p><strong>Username:</strong> {{ client.username | e }}</p>
+            <p><strong>User Code:</strong> {{ client.user_code | e }}</p>
+            <p><strong>Address:</strong> {{ client.address | e }}</p>
+            <p><strong>Created At:</strong> {{ client.created_at.strftime('%Y-%m-%d') }}</p>
+            <a href="{{ url_for('client_details', username=client.username) }}">View Details</a>
+        {% else %}
+            <p>No recent clients found. Please add a client first.</p>
+        {% endif %}
+
+        <!-- Package Table -->
+        <div id="packageTable" class="package-table">
+            <h3>Available Packages</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Speed Ethernet</th>
+                        <th>Price (ILS)</th>
+                        <th>Sector</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10M</td>
+                        <td>20 ILS</td>
+                        <td>Private</td>
+                    </tr>
+                    <tr>
+                        <td>20M</td>
+                        <td>30 ILS</td>
+                        <td>Private</td>
+                    </tr>
+                    <tr>
+                        <td>50M</td>
+                        <td>35 ILS</td>
+                        <td>Private</td>
+                    </tr>
+                    <tr>
+                        <td>100M</td>
+                        <td>40 ILS</td>
+                        <td>Private</td>
+                    </tr>
+                    <tr>
+                        <td>500M</td>
+                        <td>55 ILS</td>
+                        <td>Private</td>
+                    </tr>
+                    <tr>
+                        <td>1000M</td>
+                        <td>70 ILS</td>
+                        <td>Business</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Comunication_LTD. All rights reserved.</p>
+    </footer>
+</body>
+</html>

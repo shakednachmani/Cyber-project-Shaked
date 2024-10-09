@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                let messages = document.querySelector('.flash-messages');
+                if (messages) {
+                    Console.log(messages);
+                    messages.style.transition = 'opacity 0.5s ease';
+                    messages.style.opacity = '0';
+                    setTimeout(function() {
+                        messages.remove();
+                    }, 500);
+                }
+            }, 3000); 
+        });
+    </script>
+</head>
+<body>
+    <div class="title-container">
+        <h1 class="title"><span class="dark-blue">Comunication </span> <span class="white">LTD</span></h1>
+    </div>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Sign Up</h2>
+            <form action="/register" method="post">
+
+                <div class="input-box">
+                    <input type="text" name="username" value="{{ request.form.username or '' }}" required>
+                    <label>Username</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" name="email" value="{{ request.form.email or '' }}" required >
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="confirm_password" required>
+                    <label>Confirm Password</label>
+                </div>
+                <button type="submit">Sign Up</button>
+                <p class="login-link">Already have an account? <a href="/login">Sign in</a></p>
+
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for message in messages %}
+                            <div class="alert">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% endwith %}
+            </form>
+        </div>
+    </div>
+</body>
+</html>

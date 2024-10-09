@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
+    <form method="post" action="{{ url_for('enter_token') }}">
+        <input type="hidden" name="email" value="{{ email }}">
+        <label for="token">Enter the token sent to your email:</label>
+        <input type="text" name="token" required>
+        <button type="submit">Verify Token</button>
+    </form>

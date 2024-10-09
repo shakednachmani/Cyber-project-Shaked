@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="navbar">
+        {% include 'navbar.html' %}
+    </div>
+
+    <header>
+        <h1>Client Details</h1>
+    </header>
+
+    <div class="container">
+        <!-- Check if client exists -->
+        {% if client %}
+            <h2>{{ client.username }}</h2>
+            <p><strong>User Code:</strong> {{ client.user_code }}</p>
+            <p><strong>Address:</strong> {{ client.address }}</p>
+            <p><strong>Created At:</strong> {{ client.created_at.strftime('%Y-%m-%d') }}</p>
+        {% else %}
+            <!-- Display message if no client data is available -->
+            <p>No client data available. Please check the username or try again later.</p>
+        {% endif %}
+        <a href="{{ url_for('homepage') }}" class="btn">Back to Home</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Comunication_LTD. All rights reserved.</p>
+    </footer>
+</body>
+</html>
